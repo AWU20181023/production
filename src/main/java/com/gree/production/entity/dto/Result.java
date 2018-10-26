@@ -1,9 +1,23 @@
 package com.gree.production.entity.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Result {
+    @JSONField(ordinal = 1)
     private Integer code;
+    @JSONField(ordinal = 21)
     private String msg;
+    @JSONField(ordinal = 3)
     private Object data;
+
+    public Result() {
+    }
+
+    public Result(Integer code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
 
     public Integer getCode() {
         return code;

@@ -1,12 +1,19 @@
 package com.gree.production.entity.po;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.math.BigDecimal;
 
 public class Production {
+    @JSONField(ordinal = 1)
     private Integer id;
+    @JSONField(ordinal = 2)
     private String name;
-    private BigDecimal price;
+    @JSONField(ordinal = 3)
+    private Double price;
+    @JSONField(ordinal = 4)
     private String description;
+    @JSONField(ordinal = 5)
     private String icon;
 
     public Integer getId() {
@@ -25,11 +32,11 @@ public class Production {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
