@@ -7,9 +7,11 @@ import com.gree.production.entity.po.Category;
 import com.gree.production.entity.po.Production;
 import com.gree.production.service.ProductionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +22,19 @@ public class ProductionController {
     @Autowired
     private ProductionService productionService;
 
+    @GetMapping("getList")
     public Result getList() {
+        return new Result(0, "成功", JSON.toJSON(getCategories()));
+    }
+
+    @PostMapping("listForOrder")
+    public List<ProductionDtos> listForOrder(@RequestBody List<String> productIdList) {
+        productIdList.forEach(System.out::println);
+        return getCategories();
+    }
+
+    private List<ProductionDtos> getCategories() {
+        List<ProductionDtos> productionDtosList = new LinkedList<>();
         ProductionDtos productionDtos = new ProductionDtos();
         List<Category> categories = new LinkedList<>();
         List<Production> productions = new ArrayList<>();
@@ -47,10 +61,11 @@ public class ProductionController {
         productions.add(production);
         category = new Category();
         category.setFoods(productions);
-        category.setType(1);
-        category.setName("热情");
+        category.setType(2);
+        category.setName("好吃");
         categories.add(category);
-
-        return new Result(0, "成功", JSON.toJSONString(categories, true));
+        productionDtos.setCategories(categories);
+        productionDtosList.add(productionDtos);
+        return productionDtosList;
     }
 }
