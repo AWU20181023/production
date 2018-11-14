@@ -1,6 +1,7 @@
 package com.gree.production.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.gree.production.entity.dto.CartDto;
 import com.gree.production.entity.dto.ProductionDtos;
 import com.gree.production.entity.dto.Result;
 import com.gree.production.entity.po.Category;
@@ -31,6 +32,15 @@ public class ProductionController {
     public List<ProductionDtos> listForOrder(@RequestBody List<String> productIdList) {
         productIdList.forEach(System.out::println);
         return getCategories();
+    }
+
+    @PostMapping("decrementStock")
+    private void decrementStock(@RequestBody List<CartDto> cartDtoList){
+        if (cartDtoList != null&&cartDtoList.size()>0) {
+            for (CartDto cartDto : cartDtoList) {
+                System.out.println(cartDto);
+            }
+        }
     }
 
     private List<ProductionDtos> getCategories() {
